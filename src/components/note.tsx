@@ -146,6 +146,13 @@ export const Note: React.FC = () => {
     fileInput.click();
   }
 
+  const clearNotes = () => {
+    if (window.confirm('Are you sure you want to clear all notes?')) {
+      saveNotes([]);
+      id.current = 0;
+    }
+  }
+
   const scrollToNote = (id: number) => {
     noteRefs.current[id]?.scrollIntoView({
       behavior: 'smooth',
@@ -160,6 +167,10 @@ export const Note: React.FC = () => {
       <header className="py-4 px-6 flex items-center justify-between shadow-md z-10">
         <h1 className="text-2xl font-bold">Geo Note</h1>
         <div className='space-x-2'>
+        <Button variant={"destructive"} onClick={clearNotes}>
+            <TrashIcon className="w-5 h-5 md:mr-2" />
+            <span className='hidden md:block'>Clear Notes</span>
+          </Button>
           <Button variant="outline" onClick={exportNotes}>
             <ExportIcon className="w-5 h-5 md:mr-2" />
             <span className='hidden md:block'>Export Notes</span>
@@ -168,6 +179,7 @@ export const Note: React.FC = () => {
             <ImportIcon className="w-5 h-5 md:mr-2" />
             <span className='hidden md:block'>Import Notes</span>
           </Button>
+          
         </div>
       </header>
       <div>
@@ -465,6 +477,7 @@ function CalendarDaysIcon(props: React.SVGProps<SVGSVGElement>) {
     </svg>
   )
 }
+
 
 function ImportIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
